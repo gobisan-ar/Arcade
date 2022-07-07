@@ -4,11 +4,19 @@ from snake import Snake
 from turtle import Screen
 from score_board import ScoreBoard
 
+game_is_on = True
+
 screen = Screen()
 screen.tracer(0)
 screen.bgcolor("black")
 screen.title("My Snake Game")
 screen.setup(width=600, height=600)
+
+
+def turn_off_game():
+    global game_is_on
+    game_is_on = False
+
 
 food = Food()
 snake = Snake()
@@ -19,8 +27,8 @@ screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
+screen.onkey(turn_off_game, "Escape")
 
-game_is_on = True
 while game_is_on:
     screen.update()
     time.sleep(0.1)
@@ -34,13 +42,13 @@ while game_is_on:
 
     # Detect collision with wall
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        game_is_on = False
-        score_board.game_over()
+        score_board.reset()
+        snake.reset()
 
     # Detect collision with wall
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            score_board.game_over()
+            score_board.reset()
+            snake.reset()
 
 screen.exitonclick()
