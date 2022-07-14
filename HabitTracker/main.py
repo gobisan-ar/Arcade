@@ -24,7 +24,7 @@ user_params = {
 # Create graph
 graph_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs"
 
-graph_config = {
+graph_params = {
     "id": GRAPH_ID,
     "name": "Cycling Graph",
     "unit": "Km",
@@ -36,7 +36,7 @@ headers = {
     "X-USER-TOKEN": TOKEN
 }
 
-# response = requests.post(url=graph_endpoint, json=graph_config, headers=headers)
+# response = requests.post(url=graph_endpoint, json=graph_params, headers=headers)
 # print(response.text)
 
 
@@ -45,27 +45,27 @@ pixel_creation_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}"
 
 date = datetime.now().strftime("%Y%m%d")
 
-pixel_data = {
+pixel_params = {
     "date": date,
     "quantity": input("How many kilometers did you cycle today? "),
 }
 
-response = requests.post(url=pixel_creation_endpoint, json=pixel_data, headers=headers)
+response = requests.post(url=pixel_creation_endpoint, json=pixel_params, headers=headers)
 print(response.text)
 
 # Update pixel
-update_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}/{date}"
+pixel_update_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}/{date}"
 
-new_pixel_data = {
+new_pixel_params = {
     "quantity": "14.53"
 }
 
-# response = requests.put(url=update_endpoint, json=new_pixel_data, headers=headers)
+# response = requests.put(url=pixel_update_endpoint, json=new_pixel_params, headers=headers)
 # print(response.text)
 
 
 # Delete pixel
-delete_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}/{date}"
+pixel_delete_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}/{date}"
 
-# response = requests.delete(url=delete_endpoint, headers=headers)
+# response = requests.delete(url=pixel_delete_endpoint, headers=headers)
 # print(response.text)
